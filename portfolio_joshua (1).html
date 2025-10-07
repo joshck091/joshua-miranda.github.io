@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joshua Miranda - Ingeniero de Software y Redes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #667eea;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveBackground 20s linear infinite;
+        }
+
+        @keyframes moveBackground {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .hero .subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.95;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.85;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin: 0.5rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: #667eea;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .profile-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .profile-image {
+            width: 280px;
+            height: 280px;
+            border-radius: 20px;
+            object-fit: cover;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            border: 5px solid white;
+            transition: transform 0.3s;
+        }
+
+        .profile-image:hover {
+            transform: scale(1.05);
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .education {
+            background: #f7f7f7;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 1.5rem;
+            border-left: 4px solid #667eea;
+        }
+
+        .education h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .education-item {
+            margin-bottom: 1rem;
+        }
+
+        .education-item strong {
+            display: block;
+            color: #333;
+        }
+
+        .education-item span {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .skill {
+            background: #f7f7f7;
+            padding: 1rem;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            transition: transform 0.3s;
+        }
+
+        .skill:hover {
+            transform: translateX(10px);
+        }
+
+        .skill strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .skill p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Experience Section */
+        .experience-card {
+            background: #f7f7f7;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .experience-card h3 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-card .company {
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 1rem;
+        }
+
+        .experience-card ul {
+            margin-left: 1.5rem;
+        }
+
+        .experience-card li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3.5rem;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-content h3 {
+            color: #667eea;
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+        }
+
+        .project-content p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            background: #667eea;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .contact h2 {
+            color: white;
+        }
+
+        .contact-info {
+            margin: 2rem 0;
+            font-size: 1.1rem;
+        }
+
+        .contact-info p {
+            margin: 0.5rem 0;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s;
+        }
+
+        .contact-link:hover {
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.3rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-section {
+                order: -1;
+            }
+
+            .profile-image {
+                width: 220px;
+                height: 220px;
+            }
+
+            .skills {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                gap: 1rem;
+                font-size: 0.9rem;
+                flex-wrap: wrap;
+                padding: 0 1rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#sobre-mi">Sobre Mí</a></li>
+            <li><a href="#experiencia">Experiencia</a></li>
+            <li><a href="#proyectos">Proyectos</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <h1>Joshua Irvin Miranda Martínez</h1>
+            <p class="subtitle">Ingeniero en Software y Redes</p>
+            <p>Especializado en Ciberseguridad, IoT y Desarrollo de Software</p>
+            <a href="#proyectos" class="cta-button">Ver Proyectos</a>
+            <a href="#contacto" class="cta-button">Contactar</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="sobre-mi">
+        <h2>Sobre Mí</h2>
+        <div class="about-content">
+            <div class="profile-section">
+                <img src="https://cdn.jsdelivr.net/gh/user-attachments/assets/PLACEHOLDER" alt="Joshua Miranda" class="profile-image" id="profileImg">
+                <div class="about-text">
+                    <p>Ingeniero en Software y Redes con formación sólida en desarrollo de software, infraestructura tecnológica, electrónica y seguridad informática. Actualmente cursando una Maestría en Seguridad de Tecnologías de la Información en la Universidad Tecnológica de México (UNITEC).</p>
+                    <p style="margin-top: 1rem;">Mi experiencia práctica abarca programación, redes, proyectos con Arduino y desarrollo de aplicaciones. Me apasiona la ciberseguridad, IoT y el desarrollo de software innovador que contribuya a la transformación tecnológica de las organizaciones.</p>
+                </div>
+            </div>
+            <div>
+                
+                <div class="education">
+                    <h3>🎓 Formación Académica</h3>
+                    <div class="education-item">
+                        <strong>Maestría en Seguridad de Tecnologías de la Información</strong>
+                        <span>Universidad Tecnológica de México (UNITEC) | 2025 - Actualidad</span>
+                    </div>
+                    <div class="education-item">
+                        <strong>Ingeniería en Software y Redes</strong>
+                        <span>Universidad Tecnológica de México (UNITEC) | 2025</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skills">
+                <div class="skill">
+                    <strong>💻 Programación</strong>
+                    <p>Python, Flutter/Dart, Java, C/C++, SQL</p>
+                </div>
+                <div class="skill">
+                    <strong>🔧 Electrónica y Hardware</strong>
+                    <p>Arduino, Sensores, Automatización, IoT</p>
+                </div>
+                <div class="skill">
+                    <strong>🌐 Redes y Seguridad</strong>
+                    <p>Configuración, Administración, Ciberseguridad</p>
+                </div>
+                <div class="skill">
+                    <strong>🛡️ Ciberseguridad</strong>
+                    <p>Análisis de Vulnerabilidades, Auditoría SI</p>
+                </div>
+                <div class="skill">
+                    <strong>☁️ Cloud & DevOps</strong>
+                    <p>Firebase, Docker, Virtualización</p>
+                </div>
+                <div class="skill">
+                    <strong>🛠️ Herramientas</strong>
+                    <p>Git, Tkinter, OpenCV, Docker</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experiencia">
+        <h2>Experiencia Profesional</h2>
+        <div class="experience-card">
+            <h3>Servicio Social - Área de Tecnologías de la Información</h3>
+            <p class="company">Editorial Trillas | Ciudad de México | 2023</p>
+            <ul>
+                <li>Desarrollo de software para automatizar procesos internos</li>
+                <li>Mantenimiento y optimización de bases de datos</li>
+                <li>Apoyo en el área de TI para mejorar la eficiencia de los sistemas</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="proyectos">
+        <h2>Proyectos Destacados</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-image">🎵</div>
+                <div class="project-content">
+                    <h3>Reproductor de Audio Inteligente</h3>
+                    <p>Aplicación con interfaz gráfica que incluye lista de canciones con scroll, controles de reproducción, barra de progreso animada e interacción con metadatos musicales.</p>
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Tkinter</span>
+                        <span class="tag">Pygame</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">📄</div>
+                <div class="project-content">
+                    <h3>Lector de PDF con IA</h3>
+                    <p>Sistema avanzado de extracción de texto, conteo de palabras clave, generación de resúmenes automáticos y exportación de resultados procesados.</p>
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">NLP</span>
+                        <span class="tag">PDF</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">📚</div>
+                <div class="project-content">
+                    <h3>App de Lectura con Flutter</h3>
+                    <p>Aplicación móvil completa con registro de libros, notas, resúmenes, estadísticas de lectura y sincronización en la nube mediante Firebase.</p>
+                    <div class="project-tags">
+                        <span class="tag">Flutter</span>
+                        <span class="tag">Dart</span>
+                        <span class="tag">Firebase</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">📸</div>
+                <div class="project-content">
+                    <h3>Sistema OCR Multilenguaje</h3>
+                    <p>Captura y reconocimiento de texto con cámara, soporte multilenguaje, traducción automática, exportación a TXT/PDF e historial de capturas.</p>
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">OpenCV</span>
+                        <span class="tag">OCR</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">📖</div>
+                <div class="project-content">
+                    <h3>Buscador de Versículos Bíblicos</h3>
+                    <p>Aplicación web con integración de API (RV1960), modo oscuro, lectura en voz alta y sistema de búsquedas avanzadas por palabra clave.</p>
+                    <div class="project-tags">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">API</span>
+                        <span class="tag">Web Speech</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">🎮</div>
+                <div class="project-content">
+                    <h3>Snake Game Retro</h3>
+                    <p>Juego arcade con pantalla de inicio retro, múltiples niveles de dificultad, sistema de vidas, música de fondo y efectos de sonido con Pygame.</p>
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Pygame</span>
+                        <span class="tag">Game Dev</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">🔊</div>
+                <div class="project-content">
+                    <h3>Asistente de Lectura con Voz</h3>
+                    <p>Sistema de text-to-speech con detección automática de idioma, control de velocidad, lectura en voz alta y exportación de audio en formato MP3.</p>
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">TTS</span>
+                        <span class="tag">Audio</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">🤖</div>
+                <div class="project-content">
+                    <h3>Proyectos Arduino IoT</h3>
+                    <p>Diversos prototipos de automatización con control de sensores, integración de hardware, sistemas de monitoreo y soluciones IoT con Arduino.</p>
+                    <div class="project-tags">
+                        <span class="tag">Arduino</span>
+                        <span class="tag">C++</span>
+                        <span class="tag">IoT</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contacto">
+        <h2>Contacto</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 1rem;">¿Interesado en colaborar o tienes un proyecto en mente?</p>
+        <p style="font-size: 1.1rem; margin-bottom: 2rem;">¡Hablemos!</p>
+        
+        <div class="contact-info">
+            <p>📞 Tel: 56 6133 4454</p>
+            <p>📱 WhatsApp: 55 8683 6586</p>
+            <p>✉️ joshck89@gmail.com</p>
+        </div>
+
+        <div class="contact-links">
+            <a href="mailto:joshck89@gmail.com" class="contact-link">📧 Enviar Email</a>
+            <a href="https://wa.me/528568836586" target="_blank" class="contact-link">💬 WhatsApp</a>
+            <a href="tel:5661334454" class="contact-link">📞 Llamar</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Joshua Irvin Miranda Martínez - Ingeniero en Software y Redes</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;">Especializado en Ciberseguridad, IoT y Desarrollo de Software</p>
+    </footer>
+
+    <script>
+        // Load profile image from uploaded file
+        const profileImg = document.getElementById('profileImg');
+        // You'll need to replace this with the actual path to your uploaded image
+        // For now, using a data URL from the uploaded image
+        profileImg.src = 'data:image/jpeg;base64,/9j/4AAQSkZJRg...'; // This will be replaced with actual image data
+        
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(255, 255, 255, 0.98)';
+                nav.style.boxShadow = '0 2px 15px rgba(0,0,0,0.15)';
+            } else {
+                nav.style.background = 'rgba(255, 255, 255, 0.95)';
+                nav.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+            }
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe project cards
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
